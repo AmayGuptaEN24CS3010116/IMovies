@@ -16,26 +16,26 @@ The Node.js native test runner currently tests seat-code validation, seat-layout
 
 | ID | Test | Expected result | Status |
 |---|---|---|---|
-| T01 | Open `/api/health` on Render | JSON `status: ok` and `realtime: true` | Not run after latest code update |
-| T02 | Open `/api/movies?limit=10` | Movie records and pagination object | Not run after latest code update |
-| T03 | Register with valid name/email/password | 201, JWT and user profile; password is not returned | Not run after latest code update |
-| T04 | Register same email again | 409 conflict message | Not run after latest code update |
-| T05 | Log in with wrong password | 401 and generic credential error | Not run after latest code update |
-| T06 | Search/filter movies by genre, language, title and city | Catalogue filters the expected records | Not run after latest code update |
-| T07 | Open movie, choose date/cinema/showtime | Shows are loaded from MongoDB | Not run after latest code update |
-| T08 | Select available seats and confirm booking | Booking + demo payment record + notification are created | Not run after latest code update |
-| T09 | Attempt to reserve same show/seat from a second account/session | Duplicate reservation is rejected with 409 | Not run after latest code update |
-| T10 | Open second session with same show selected | Socket.IO pushes seat refresh after booking/cancellation | Not run after latest code update |
-| T11 | Open My Tickets | Signed-in user's bookings show date, seats, code, total and status | Not run after latest code update |
-| T12 | Cancel a confirmed booking | Status changes to cancelled and show seats are released | Not run after latest code update |
-| T13 | Open notification panel and mark as read | Notifications persist and unread count updates | Not run after latest code update |
-| T14 | Inspect payment detail | Payment is labelled simulated; no live charge occurs | Not run after latest code update |
-| T15 | User calls an admin API | 403 Forbidden | Not run after latest code update |
-| T16 | Admin creates/edits a movie | Changes persist in MongoDB and catalogue reloads | Not run after latest code update |
-| T17 | Admin creates/edits/deactivates a theatre | Changes persist and inactive theatre is hidden from public choices | Not run after latest code update |
-| T18 | Admin schedules/edits/cancels a show | Show is saved; cancelled shows are not bookable | Not run after latest code update |
+| T01 | Open `/api/health` on Render | JSON `status: ok` and `realtime: true` |PASS — API returned status ok. |
+| T02 | Open `/api/movies?limit=10` | Movie records and pagination object | PASS — Movie records and pagination returned successfully. |
+| T03 | Register with valid name/email/password | 201, JWT and user profile; password is not returned | PASS — New user registered successfully. |
+| T04 | Register same email again | 409 conflict message | PASS — Duplicate email registration rejected. |
+| T05 | Log in with wrong password | 401 and generic credential error | PASS — Incorrect password rejected; login denied. |
+| T06 | Search/filter movies by genre, language, title and city | Catalogue filters the expected records | PASS — Movie search and genre filtering work correctly. |
+| T07 | Open movie, choose date/cinema/showtime | Shows are loaded from MongoDB | PASS — Movie details and available showtimes displayed correctly. |
+| T08 | Select available seats and confirm booking | Booking + demo payment record + notification are created | PASS — Seat selection works and the total price updates correctly. |
+| T09 | Attempt to reserve same show/seat from a second account/session | Duplicate reservation is rejected with 409 | PASS — Duplicate reservation rejected with 409 Conflict. |
+| T10 | Open second session with same show selected | Socket.IO pushes seat refresh after booking/cancellation | PASS — Seat availability refreshed in the second session. |
+| T11 | Open My Tickets | Signed-in user's bookings show date, seats, code, total and status | PASS — Booking details display correctly and persist after refresh. |
+| T12 | Cancel a confirmed booking | Status changes to cancelled and show seats are released | PASS — Booking cancellation works and the seats are released. |
+| T13 | Open notification panel and mark as read | Notifications persist and unread count updates |PASS — Notifications persist and the unread count updates correctly.|
+| T14 | Inspect payment detail | Payment is labelled simulated; no live charge occurs | PASS — Payment is labelled as simulated; no real charge occurs. |
+| T15 | User calls an admin API | 403 Forbidden |PASS — Normal user is denied access to admin-only operations. |
+| T16 | Admin creates/edits a movie | Changes persist in MongoDB and catalogue reloads | PASS — Admin movie changes persist in MongoDB and appear in the catalogue. |
+| T17 | Admin creates/edits/deactivates a theatre | Changes persist and inactive theatre is hidden from public choices | PASS — Theatre creation, editing and deactivation work correctly. |
+| T18 | Admin schedules/edits/cancels a show | Show is saved; cancelled shows are not bookable | PASS — Shows can be created, edited and cancelled; cancelled shows cannot be booked. |
 | T19 | API abuse / rate-limit smoke test | Repeated requests eventually receive 429 | Not run after latest code update |
-| T20 | Narrow desktop and mobile viewport | Layout remains navigable, no major clipping | Not run after latest code update |
+| T20 | Narrow desktop and mobile viewport | Layout remains navigable, no major clipping | PASS — Desktop and mobile layouts remain usable without major clipping. |
 
 ## Evidence to capture
 
