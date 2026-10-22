@@ -1,0 +1,26 @@
+digraph IMoviesER {
+  graph [rankdir=TB, bgcolor="#ffffff", pad="0.2", nodesep="0.36", ranksep="0.5", fontname="Arial", label="IMovies - MongoDB Collection Relationships", labelloc=t, fontsize=17, ratio=fill, size="8,7!"];
+  node [shape=record, style="filled", fontname="Arial", fontsize=9, color="#c8c9d5", fillcolor="#f6f5fb", fontcolor="#222334", margin="0.1,0.08"];
+  edge [fontname="Arial", fontsize=8, color="#77758a", arrowsize=0.65];
+  User [label="{User|_id\lname\lemail unique\lpasswordHash\lrole user/admin\l}", fillcolor="#fce9ec"];
+  Movie [label="{Movie|_id\ltitle\lgenre[]\lduration\llanguage\lposterUrl\lprice\l}", fillcolor="#ede8ff"];
+  Theatre [label="{Theatre|_id\lname\lcity\laddress\lscreens\lactive\l}", fillcolor="#e4f4ee"];
+  Show [label="{Show|_id\lmovie ref Movie\ltheatre ref Theatre\lshowDate / showTime\lscreenName / price\lseatRows / seatsPerRow\lstatus\l}", fillcolor="#fff0d8"];
+  Booking [label="{Booking|_id\luser ref User\lmovie ref Movie\lshow ref Show\lseats[] / totalAmount\lstatus / bookingCode\lpaymentStatus\l}", fillcolor="#eef3ff"];
+  SeatReservation [label="{SeatReservation|_id\lshow ref Show\lseat\lbooking ref Booking\lunique show + seat\l}", fillcolor="#fce9ec"];
+  Payment [label="{Payment|_id\lbooking ref Booking\luser ref User\lamount / currency\lDEMO status / reference\l}", fillcolor="#e5f4f1"];
+  Notification [label="{Notification|_id\luser ref User\lbooking ref Booking\ltitle / message\lreadAt / type\l}", fillcolor="#f3edff"];
+  {rank=same; User; Movie; Theatre;}
+  {rank=same; SeatReservation; Payment; Notification;}
+  User -> Booking [label="1:N"];
+  Movie -> Show [label="1:N"];
+  Movie -> Booking [label="1:N"];
+  Theatre -> Show [label="1:N"];
+  Show -> Booking [label="1:N"];
+  Show -> SeatReservation [label="1:N"];
+  Booking -> SeatReservation [label="1:N"];
+  Booking -> Payment [label="demo payment"];
+  User -> Payment [label="1:N"];
+  User -> Notification [label="1:N"];
+  Booking -> Notification [label="optional"];
+}

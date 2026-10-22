@@ -1,0 +1,25 @@
+digraph IMoviesArchitecture {
+  graph [rankdir=TB, bgcolor="#ffffff", pad="0.25", nodesep="0.42", ranksep="0.52", fontname="Arial", label="IMovies - Technical Architecture", labelloc=t, fontsize=18];
+  node [shape=box, style="rounded,filled", fontname="Arial", fontsize=10, color="#c9cbd8", fillcolor="#f4f3fb", fontcolor="#242536", margin="0.16,0.10"];
+  edge [fontname="Arial", fontsize=9, color="#77758a", arrowsize=0.75];
+  visitor [label="Visitor / Registered User", fillcolor="#fce9ec"];
+  react [label="React + Vite Frontend\nMovie catalogue • filters • booking UI\nAdminPanel • My Tickets • Notifications", fillcolor="#ede8ff"];
+  api [label="Express REST API\nCORS • JSON • pagination\nRate limiting • validation", fillcolor="#e4f4ee"];
+  auth [label="JWT / Role Middleware\nAuthenticated user • Admin checks", fillcolor="#fff0d8"];
+  routes [label="Route / Controller Handlers\nAuth • Movies • Theatres • Shows\nBookings • Payments • Notifications • Admin", fillcolor="#eef3ff"];
+  socket [label="Socket.IO Events\njoin-show / leave-show\nseats-updated broadcast", fillcolor="#fce9ec"];
+  mongoose [label="Mongoose Models & Indexes\nValidation • refs • unique show-seat reservation", fillcolor="#f3edff"];
+  db [shape=cylinder, label="MongoDB Atlas / MongoDB\nUsers • Movies • Theatres • Shows\nBookings • SeatReservations\nPayments • Notifications", fillcolor="#e5f4f1"];
+  visitor -> react [label="Browse / interact"];
+  react -> api [label="HTTPS JSON requests"];
+  api -> auth [label="Protected routes"];
+  auth -> routes;
+  routes -> mongoose [label="Model operations"];
+  mongoose -> db [label="Read / write documents"];
+  db -> mongoose [label="Results"];
+  routes -> api [label="Response", constraint=false];
+  api -> react [label="JSON response", constraint=false];
+  react -> socket [label="Watch selected show"];
+  socket -> api [label="Reservation change event", constraint=false];
+  api -> socket [label="Broadcast after booking / cancellation", constraint=false];
+}

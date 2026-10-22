@@ -1,0 +1,29 @@
+digraph IMoviesFlow {
+  graph [rankdir=TB, bgcolor="#ffffff", pad="0.25", nodesep="0.32", ranksep="0.38", fontname="Arial", label="IMovies - User and Admin Flow", labelloc=t, fontsize=18];
+  node [shape=box, style="rounded,filled", fontname="Arial", fontsize=10, color="#c9cbd8", fillcolor="#f4f3fb", fontcolor="#242536", margin="0.15,0.09"];
+  edge [fontname="Arial", fontsize=9, color="#77758a", arrowsize=0.7];
+  start [shape=oval, label="Open IMovies", fillcolor="#e4f4ee"];
+  browse [label="Browse / search / filter movies"];
+  select [label="Choose movie + show date"];
+  shows [label="Choose active theatre, screen and showtime"];
+  auth [shape=diamond, label="Signed in?", fillcolor="#fff0d8"];
+  login [label="Register or log in", fillcolor="#fce9ec"];
+  seats [label="Load seat map from API\nSocket.IO watches current show"];
+  choose [label="Select up to 8 available seats"];
+  reserve [label="Backend validates seats\nunique(show, seat) reservation index"];
+  checkout [label="Record demo payment\nNo real money is charged", fillcolor="#fff0d8"];
+  done [label="Booking confirmed\nTicket + notification saved", fillcolor="#e4f4ee"];
+  history [label="My Tickets / Notifications"];
+  cancel [label="Optional: cancel booking\nrelease seats + simulated refund status"];
+  end [shape=oval, label="Finish", fillcolor="#e4f4ee"];
+  start -> browse -> select -> shows -> auth;
+  auth -> login [label="No"];
+  login -> seats;
+  auth -> seats [label="Yes"];
+  seats -> choose -> reserve -> checkout -> done -> history;
+  history -> cancel [label="If needed"];
+  cancel -> end;
+  history -> end [label="Otherwise"];
+  admin [label="Admin role: manage movies, theatres, shows\nand review booking records", fillcolor="#ede8ff"];
+  auth -> admin [label="Admin account", style=dashed];
+}
