@@ -1,0 +1,10 @@
+digraph ER {
+  graph [rankdir=LR, bgcolor="white", pad="0.25", nodesep="0.65", ranksep="0.8", label="IMovies Data Model (MongoDB Collections)", labelloc=t, fontsize=20, fontname="Arial", fontcolor="#25213A"];
+  node [shape=plain, fontname="Arial"];
+  edge [fontname="Arial", fontsize=10, color="#766C90", penwidth=1.4, arrowsize=0.8];
+  User [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" COLOR="#C3B5EF"><TR><TD BGCOLOR="#E9E0FF"><B>User</B></TD></TR><TR><TD ALIGN="LEFT">_id (PK)</TD></TR><TR><TD ALIGN="LEFT">name</TD></TR><TR><TD ALIGN="LEFT">email (unique)</TD></TR><TR><TD ALIGN="LEFT">passwordHash</TD></TR><TR><TD ALIGN="LEFT">role</TD></TR><TR><TD ALIGN="LEFT">timestamps</TD></TR></TABLE> >];
+  Movie [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" COLOR="#A5CDED"><TR><TD BGCOLOR="#DDF0FF"><B>Movie</B></TD></TR><TR><TD ALIGN="LEFT">_id (PK)</TD></TR><TR><TD ALIGN="LEFT">title, description</TD></TR><TR><TD ALIGN="LEFT">genre[]</TD></TR><TR><TD ALIGN="LEFT">duration, rating</TD></TR><TR><TD ALIGN="LEFT">language, certificate</TD></TR><TR><TD ALIGN="LEFT">posterUrl, price</TD></TR><TR><TD ALIGN="LEFT">timestamps</TD></TR></TABLE> >];
+  Booking [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" COLOR="#9DCCAD"><TR><TD BGCOLOR="#DDF4E4"><B>Booking</B></TD></TR><TR><TD ALIGN="LEFT">_id (PK)</TD></TR><TR><TD ALIGN="LEFT">user (ref User)</TD></TR><TR><TD ALIGN="LEFT">movie (ref Movie)</TD></TR><TR><TD ALIGN="LEFT">showDate, showTime</TD></TR><TR><TD ALIGN="LEFT">seats[]</TD></TR><TR><TD ALIGN="LEFT">totalAmount</TD></TR><TR><TD ALIGN="LEFT">status, bookingCode</TD></TR><TR><TD ALIGN="LEFT">timestamps</TD></TR></TABLE> >];
+  User -> Booking [label="one user has many bookings", arrowhead=vee];
+  Movie -> Booking [label="one movie can appear in many bookings", arrowhead=vee];
+}

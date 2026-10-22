@@ -1,0 +1,18 @@
+digraph MVC {
+ graph [rankdir=TB, bgcolor="white", pad="0.3", nodesep="0.55", ranksep="0.65", label="IMovies MVC / Request-Handling Pattern", labelloc=t, fontsize=20, fontname="Arial", fontcolor="#25213A"];
+ node [shape=box, style="rounded,filled", fontname="Arial", fontsize=11, margin="0.18,0.13", color="#C9C2E8"];
+ edge [fontname="Arial", fontsize=9, color="#77718D", arrowsize=0.8];
+ user [label="User", fillcolor="#F1EDFF"];
+ view [label="View / UI\nReact Components", fillcolor="#E5F4FF"];
+ route [label="Routes + Handler Logic\nExpress REST modules", fillcolor="#E5F7F0"];
+ model [label="Model\nMongoose schemas", fillcolor="#F2EAFE"];
+ db [shape=cylinder,label="MongoDB",fillcolor="#E9F6E7"];
+ user -> view [label="click / input"];
+ view -> route [label="HTTP request"];
+ route -> model [label="query / update"];
+ model -> db [label="CRUD"];
+ db -> model [label="documents"];
+ model -> route [label="result"];
+ route -> view [label="JSON response", constraint=false];
+ view -> user [label="updated screen", constraint=false];
+}

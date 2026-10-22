@@ -1,0 +1,85 @@
+[
+  {
+    "title": "Dune: Part Two",
+    "description": "Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family.",
+    "genre": [
+      "Sci-Fi",
+      "Adventure"
+    ],
+    "duration": 166,
+    "rating": 8.5,
+    "language": "English",
+    "certificate": "UA",
+    "posterUrl": "https://image.tmdb.org/t/p/w500/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg",
+    "price": 220
+  },
+  {
+    "title": "Spider-Man: Across the Spider-Verse",
+    "description": "Miles Morales travels across the multiverse and meets a team of Spider-People protecting its existence.",
+    "genre": [
+      "Animation",
+      "Action"
+    ],
+    "duration": 140,
+    "rating": 8.6,
+    "language": "English",
+    "certificate": "U/A",
+    "posterUrl": "https://image.tmdb.org/t/p/w500/8Vt6mWEReuy4Of61Lnj5Xj9588.jpg",
+    "price": 200
+  },
+  {
+    "title": "The Batman",
+    "description": "Batman investigates a trail of corruption in Gotham and faces a killer targeting the city's elite.",
+    "genre": [
+      "Action",
+      "Crime"
+    ],
+    "duration": 176,
+    "rating": 7.8,
+    "language": "English",
+    "certificate": "UA",
+    "posterUrl": "https://image.tmdb.org/t/p/w500/74xTEgt7R36Fpooo50r9T25onhq.jpg",
+    "price": 180
+  },
+  {
+    "title": "Interstellar",
+    "description": "A team of explorers travels beyond this galaxy to discover whether mankind has a future among the stars.",
+    "genre": [
+      "Sci-Fi",
+      "Drama"
+    ],
+    "duration": 169,
+    "rating": 8.7,
+    "language": "English",
+    "certificate": "UA",
+    "posterUrl": "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+    "price": 190
+  },
+  {
+    "title": "Jawan",
+    "description": "A man driven by a personal vendetta sets out to correct the wrongs in society.",
+    "genre": [
+      "Action",
+      "Thriller"
+    ],
+    "duration": 169,
+    "rating": 7.0,
+    "language": "Hindi",
+    "certificate": "UA",
+    "posterUrl": "https://image.tmdb.org/t/p/w500/jFt1gS4BGHlK8xt76Y3Au2t9Z6j.jpg",
+    "price": 180
+  },
+  {
+    "title": "12th Fail",
+    "description": "A young man from a modest background keeps pursuing his dream of becoming an officer despite repeated setbacks.",
+    "genre": [
+      "Drama"
+    ],
+    "duration": 147,
+    "rating": 8.8,
+    "language": "Hindi",
+    "certificate": "U",
+    "posterUrl": "https://image.tmdb.org/t/p/w500/kCGlIMHnOm8JPXq3rXM6c5wMxcT.jpg",
+    "price": 160
+  }
+]

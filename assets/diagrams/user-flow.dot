@@ -1,0 +1,20 @@
+digraph Flow {
+ graph [rankdir=TB, bgcolor="white", pad="0.3", nodesep="0.32", ranksep="0.42", label="IMovies User Booking Flow", labelloc=t, fontsize=20, fontname="Arial", fontcolor="#25213A"];
+ node [shape=box, style="rounded,filled", fontname="Arial", fontsize=10, margin="0.17,0.1", color="#CBC3E9"];
+ edge [fontname="Arial", fontsize=9, color="#77718D", arrowsize=0.75];
+ start [shape=oval,label="Open IMovies",fillcolor="#F1EDFF"];
+ browse [label="Browse / Search / Filter Movies",fillcolor="#E5F4FF"];
+ movie [label="Open Movie Details",fillcolor="#E5F4FF"];
+ show [label="Choose Show Date + Time",fillcolor="#FFF1DA"];
+ seat [label="Select Seats",fillcolor="#FFF1DA"];
+ auth [shape=diamond,label="Logged in?",fillcolor="#F2EAFE",width=1.25,height=.7];
+ login [label="Register or Log In",fillcolor="#FFE9EC"];
+ confirm [label="Confirm Booking (server checks seats)",fillcolor="#E5F7F0"];
+ ticket [label="View Confirmation / My Tickets",fillcolor="#DDF4E4"];
+ end [shape=oval,label="End",fillcolor="#F1EDFF"];
+ start -> browse -> movie -> show -> seat -> auth;
+ auth -> confirm [label="Yes"];
+ auth -> login [label="No"];
+ login -> seat [label="return to booking"];
+ confirm -> ticket -> end;
+}

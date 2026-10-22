@@ -1,0 +1,20 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", pad="0.25", nodesep="0.55", ranksep="0.65", label="IMovies Technical Architecture", labelloc=t, fontsize=20, fontname="Arial", fontcolor="#25213A"];
+  node [shape=box, style="rounded,filled", fontname="Arial", fontsize=11, margin="0.18,0.12", color="#C9C2E8", penwidth=1.2];
+  edge [fontname="Arial", fontsize=9, color="#77718D", arrowsize=0.8];
+  user [label="Visitor / Signed-in User", fillcolor="#F1EDFF"];
+  react [label="React + Vite\nUI / Search / Seat Map / My Tickets", fillcolor="#E5F4FF"];
+  express [label="Express.js REST API\nRoutes + Request Handlers", fillcolor="#E5F7F0"];
+  auth [label="JWT Auth Middleware\nVerify identity for protected routes", fillcolor="#FFF1DA"];
+  mongoose [label="Mongoose Models\nUser / Movie / Booking", fillcolor="#F2EAFE"];
+  mongo [shape=cylinder,label="MongoDB\nusers · movies · bookings", fillcolor="#E9F6E7"];
+  user -> react [label="interacts"];
+  react -> express [label="fetch / JSON"];
+  express -> auth [label="protected endpoints"];
+  auth -> express [label="authorized request"];
+  express -> mongoose [label="model operations"];
+  mongoose -> mongo [label="CRUD"];
+  mongo -> mongoose [label="documents"];
+  mongoose -> express [label="results"];
+  express -> react [label="JSON response", constraint=false];
+}
