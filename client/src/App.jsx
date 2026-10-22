@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Search, Clapperboard, Ticket, UserRound, X, CalendarDays, Clock3, Star, ChevronRight, Armchair, LogOut, Film } from "lucide-react";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:8000/api";
