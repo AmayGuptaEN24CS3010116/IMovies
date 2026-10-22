@@ -1,40 +1,59 @@
-# IMovies Manual Test Plan
+# IMovies Test Plan
 
-**Purpose:** verify the frontend, REST API and MongoDB integration before recording the demo. These are planned tests; do not mark them passed until you execute them on your own running instance.
+Run these checks on the deployed website after the upgraded commit has completed deployment. Record **Pass**, **Fail**, or **Not run** honestly; do not mark unrun tests as passed.
 
-## Preconditions
-- MongoDB service or Atlas database is reachable.
-- `server/.env` contains `MONGO_URI`, `JWT_SECRET`, `PORT=8000`, and `CLIENT_URL=http://localhost:5173`.
-- Run `npm install`, `npm run seed`, and `npm run dev` inside `server/`.
-- Run `npm install` and `npm run dev` inside `client/` in a second terminal.
-- Health endpoint returns `{"status":"ok","app":"IMovies API"}` at `http://localhost:8000/api/health`.
+## Automated tests
 
-## Test cases
+From `server/` run:
 
-| ID | Scenario | Steps | Expected result | Actual / status |
-|---|---|---|---|---|
-| T01 | API health | Open `/api/health` | JSON status `ok` | Fill after execution |
-| T02 | Movie catalogue | Open the app | Movie cards load from MongoDB if seeded | Fill after execution |
-| T03 | Search | Search `Dune` | Matching movie(s) only | Fill after execution |
-| T04 | Genre filter | Select a genre | Cards filter by selected genre | Fill after execution |
-| T05 | Register | Submit new name/email/password (8+ chars) | Account created; user is signed in | Fill after execution |
-| T06 | Duplicate registration | Register same email again | API returns conflict message | Fill after execution |
-| T07 | Login | Log in with created account | Session token stored and My Tickets loads | Fill after execution |
-| T08 | Invalid login | Use wrong password | Error shown; no session created | Fill after execution |
-| T09 | Select seats | Open a movie, choose date/time/seats | Price updates using movie's per-seat price | Fill after execution |
-| T10 | Create booking | Log in and confirm available seats | Booking code, seats and total saved | Fill after execution |
-| T11 | My Tickets | Open My Tickets after booking | Booking appears with movie/date/time/seats/total | Fill after execution |
-| T12 | Previously booked seats | Repeat same movie/date/time/seats using another account | API rejects the already-booked seat(s) | Fill after execution |
-| T13 | Unauthenticated booking | Log out and try to confirm booking | Login prompt appears | Fill after execution |
-| T14 | Invalid API auth | Call `/api/bookings/my` without JWT | HTTP 401 response | Fill after execution |
+```bash
+npm test
+```
+
+The Node.js native test runner currently tests seat-code validation, seat-layout generation and pagination bounds/metadata. This is a unit test set, not a full end-to-end suite.
+
+## Manual API and UI regression matrix
+
+| ID | Test | Expected result | Status |
+|---|---|---|---|
+| T01 | Open `/api/health` on Render | JSON `status: ok` and `realtime: true` | Not run after latest code update |
+| T02 | Open `/api/movies?limit=10` | Movie records and pagination object | Not run after latest code update |
+| T03 | Register with valid name/email/password | 201, JWT and user profile; password is not returned | Not run after latest code update |
+| T04 | Register same email again | 409 conflict message | Not run after latest code update |
+| T05 | Log in with wrong password | 401 and generic credential error | Not run after latest code update |
+| T06 | Search/filter movies by genre, language, title and city | Catalogue filters the expected records | Not run after latest code update |
+| T07 | Open movie, choose date/cinema/showtime | Shows are loaded from MongoDB | Not run after latest code update |
+| T08 | Select available seats and confirm booking | Booking + demo payment record + notification are created | Not run after latest code update |
+| T09 | Attempt to reserve same show/seat from a second account/session | Duplicate reservation is rejected with 409 | Not run after latest code update |
+| T10 | Open second session with same show selected | Socket.IO pushes seat refresh after booking/cancellation | Not run after latest code update |
+| T11 | Open My Tickets | Signed-in user's bookings show date, seats, code, total and status | Not run after latest code update |
+| T12 | Cancel a confirmed booking | Status changes to cancelled and show seats are released | Not run after latest code update |
+| T13 | Open notification panel and mark as read | Notifications persist and unread count updates | Not run after latest code update |
+| T14 | Inspect payment detail | Payment is labelled simulated; no live charge occurs | Not run after latest code update |
+| T15 | User calls an admin API | 403 Forbidden | Not run after latest code update |
+| T16 | Admin creates/edits a movie | Changes persist in MongoDB and catalogue reloads | Not run after latest code update |
+| T17 | Admin creates/edits/deactivates a theatre | Changes persist and inactive theatre is hidden from public choices | Not run after latest code update |
+| T18 | Admin schedules/edits/cancels a show | Show is saved; cancelled shows are not bookable | Not run after latest code update |
+| T19 | API abuse / rate-limit smoke test | Repeated requests eventually receive 429 | Not run after latest code update |
+| T20 | Narrow desktop and mobile viewport | Layout remains navigable, no major clipping | Not run after latest code update |
 
 ## Evidence to capture
-Capture real browser screenshots after running the app:
-1. Home page with movie cards.
-2. Search/filter result.
-3. Login or registration form (do not show real passwords or private information).
-4. Seat selection modal with date/time and selected seats.
-5. Successful booking confirmation or My Tickets list.
-6. Terminal/API health check if the course expects backend evidence.
 
-Save them in `assets/screenshots/` and replace the clearly labelled previews in the report. Avoid screenshots containing secrets, environment variables, personal emails, or tokens.
+Store genuine screenshots in `assets/screenshots/`:
+
+1. Homepage with live data loaded.
+2. Search + genre/language/city filtering.
+3. Show selection showing a theatre, screen, date, time and price.
+4. Seat map with selected seats and occupied seats.
+5. Confirmed demo booking / My Tickets.
+6. Cancellation reflected in My Tickets and reopened seat availability.
+7. Notifications list.
+8. Admin dashboard after the student account has been promoted to `admin` in Atlas.
+9. Admin movie/theatre/show management screens.
+10. Render health endpoint and the browser's live deployment URL (avoid exposing secret settings).
+
+Only include screenshots actually captured from the deployed site. The images in `assets/previews/` are illustrative design previews, not runtime evidence.
+
+## Important release note
+
+This project uses simulated payments; payment state and a demo payment record are persisted, but no external payment gateway is connected. Passing these tests validates the college demonstration workflow, not production readiness.

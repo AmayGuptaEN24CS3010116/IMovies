@@ -1,20 +1,48 @@
-# IMovies Demo Video Script (about 3-5 minutes)
+# IMovies Demo Video Script (3-5 minutes)
 
-**Before recording:** run the tests in `TEST_PLAN.md`. Start MongoDB, then the backend (`server/`: `npm run dev`) and frontend (`client/`: `npm run dev`). Use a demo account and non-sensitive sample data. Do not display the `.env` file or any password/token.
+Record this only after deploying the updated repository and completing the manual test plan. Use the actual live website and do not show passwords, JWT values, MongoDB URI, secret environment values or personal user data.
 
-## Recording sequence
+## 0:00-0:25 — Introduction
 
-1. **Introduction (15-20 sec):** “This is IMovies, a MERN-stack movie ticket booking web application. It lets users browse movies, select showtimes and seats, make a demo booking, and review their tickets.”
-2. **Home page (30 sec):** show the brand, hero, movie catalogue, genres, ratings, durations and starting prices.
-3. **Search/filter (20 sec):** search for a movie title and select a genre filter.
-4. **Authentication (30-45 sec):** register a demo account or log in. Explain that passwords are hashed on the server and protected endpoints use JWTs.
-5. **Seat booking (60 sec):** open a movie, choose a future date and showtime, select two available seats, show the total and confirm the booking.
-6. **My Tickets (30-45 sec):** show the movie, date/time, selected seats, price and booking confirmation code.
-7. **Backend proof (20 sec):** optionally open `http://localhost:8000/api/health` and show the API health response.
-8. **Conclusion (10-15 sec):** summarize the React frontend, Express REST API and MongoDB collections. Mention payments are not part of this demo MVP.
+“Hello, this is IMovies - Movie Ticket Booking Made Simple. It is a MERN-stack student project built using React, Express, Node.js and MongoDB. The demo shows movie discovery, theatre schedules, live seat selection, bookings, notifications and cinema administration.”
 
-## Upload and share
-- Record the actual application (OBS Studio, Windows Snipping Tool screen recording, or another recorder).
-- Upload the video to Google Drive or YouTube.
-- Test the share link in a private/incognito window. For Drive, set access to “Anyone with the link can view” only if allowed by your course policy.
-- Paste the real URL into `docs/SKILLWALLET_SUBMISSION.md` and submit it through SkillWallet.
+## 0:25-1:05 — Movie discovery
+
+- Show homepage and movie cards.
+- Search by a title.
+- Switch genre and language filters.
+- Use the city filter if more than one demo city is configured.
+
+## 1:05-1:45 — Scheduled shows and seats
+
+- Open a movie.
+- Choose a date and a scheduled show card with theatre and screen details.
+- Show seat availability and select two seats.
+- State clearly that checkout is simulated and no real money is charged.
+
+## 1:45-2:25 — Booking and customer account
+
+- Confirm a demo booking.
+- Open My Tickets and point out the booking code, date/time, seats, total and status.
+- Open Notifications to show the persisted booking notification.
+
+## 2:25-2:55 — Cancellation and seat release
+
+- Cancel a test booking.
+- Show the cancelled status in My Tickets.
+- Re-open the same show and show that released seats become available again.
+
+## 2:55-3:55 — Admin (optional if configured)
+
+- Log in with the account promoted to admin in Atlas.
+- Open Admin.
+- Show the overview totals, add/edit a sample movie, a theatre, and a scheduled show. Use safe demo information.
+- Show the bookings table.
+
+## 3:55-4:25 — Architecture and wrap-up
+
+Briefly mention the MongoDB document models, JWT-protected routes, admin authorization, rate limiting, pagination, unique show-seat reservations and Socket.IO seat updates.
+
+## Recording and hosting
+
+Use Windows Snipping Tool screen recording, Xbox Game Bar (`Win + Alt + R`, if available) or another trusted recorder. Review the entire clip before sharing. Upload to Google Drive or YouTube and test access in a private/incognito window. Do not claim a live payment integration or features you have not demonstrated.

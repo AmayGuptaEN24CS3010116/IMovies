@@ -1,18 +1,23 @@
-digraph MVC {
- graph [rankdir=TB, bgcolor="white", pad="0.3", nodesep="0.55", ranksep="0.65", label="IMovies MVC / Request-Handling Pattern", labelloc=t, fontsize=20, fontname="Arial", fontcolor="#25213A"];
- node [shape=box, style="rounded,filled", fontname="Arial", fontsize=11, margin="0.18,0.13", color="#C9C2E8"];
- edge [fontname="Arial", fontsize=9, color="#77718D", arrowsize=0.8];
- user [label="User", fillcolor="#F1EDFF"];
- view [label="View / UI\nReact Components", fillcolor="#E5F4FF"];
- route [label="Routes + Handler Logic\nExpress REST modules", fillcolor="#E5F7F0"];
- model [label="Model\nMongoose schemas", fillcolor="#F2EAFE"];
- db [shape=cylinder,label="MongoDB",fillcolor="#E9F6E7"];
- user -> view [label="click / input"];
- view -> route [label="HTTP request"];
- route -> model [label="query / update"];
- model -> db [label="CRUD"];
- db -> model [label="documents"];
- model -> route [label="result"];
- route -> view [label="JSON response", constraint=false];
- view -> user [label="updated screen", constraint=false];
+digraph IMoviesMVC {
+  graph [rankdir=TB, bgcolor="#ffffff", pad="0.25", nodesep="0.42", ranksep="0.48", fontname="Arial", label="IMovies - MVC / Request Handling", labelloc=t, fontsize=18];
+  node [shape=box, style="rounded,filled", fontname="Arial", fontsize=10, color="#c9cbd8", fillcolor="#f4f3fb", fontcolor="#242536", margin="0.16,0.1"];
+  edge [fontname="Arial", fontsize=9, color="#77758a", arrowsize=0.7];
+  client [label="View / Client\nReact pages • forms • seat map\nAdmin panel • tickets • notifications", fillcolor="#ede8ff"];
+  routes [label="Routing layer\nExpress routes + HTTP methods\nPublic / JWT-protected / Admin-only", fillcolor="#e4f4ee"];
+  controller [label="Controller / service logic\nValidate input • apply rules\nCoordinate seats, bookings, payment demo\nand notifications", fillcolor="#fff0d8"];
+  middleware [label="Middleware\nJWT authentication • role checks\nRate limits • CORS • error handling", fillcolor="#fce9ec"];
+  model [label="Model layer\nMongoose schema validation\nReferences + indexes", fillcolor="#eef3ff"];
+  db [shape=cylinder, label="MongoDB Collections\nUser • Movie • Theatre • Show\nBooking • SeatReservation\nPayment • Notification", fillcolor="#e5f4f1"];
+  socket [label="Realtime channel\nSocket.IO broadcasts seats-updated\nafter booking/cancellation", fillcolor="#f3edff"];
+  client -> routes [label="HTTP request"];
+  routes -> middleware;
+  middleware -> controller;
+  controller -> model [label="Read / write"];
+  model -> db;
+  db -> model [label="Documents"];
+  model -> controller [label="Result", constraint=false];
+  controller -> routes [label="JSON response", constraint=false];
+  routes -> client [label="HTTP response", constraint=false];
+  controller -> socket [label="Seat state changes"];
+  socket -> client [label="Event / refresh seat map"];
 }

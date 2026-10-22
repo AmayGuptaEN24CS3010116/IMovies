@@ -1,10 +1,26 @@
-digraph ER {
-  graph [rankdir=LR, bgcolor="white", pad="0.25", nodesep="0.65", ranksep="0.8", label="IMovies Data Model (MongoDB Collections)", labelloc=t, fontsize=20, fontname="Arial", fontcolor="#25213A"];
-  node [shape=plain, fontname="Arial"];
-  edge [fontname="Arial", fontsize=10, color="#766C90", penwidth=1.4, arrowsize=0.8];
-  User [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" COLOR="#C3B5EF"><TR><TD BGCOLOR="#E9E0FF"><B>User</B></TD></TR><TR><TD ALIGN="LEFT">_id (PK)</TD></TR><TR><TD ALIGN="LEFT">name</TD></TR><TR><TD ALIGN="LEFT">email (unique)</TD></TR><TR><TD ALIGN="LEFT">passwordHash</TD></TR><TR><TD ALIGN="LEFT">role</TD></TR><TR><TD ALIGN="LEFT">timestamps</TD></TR></TABLE> >];
-  Movie [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" COLOR="#A5CDED"><TR><TD BGCOLOR="#DDF0FF"><B>Movie</B></TD></TR><TR><TD ALIGN="LEFT">_id (PK)</TD></TR><TR><TD ALIGN="LEFT">title, description</TD></TR><TR><TD ALIGN="LEFT">genre[]</TD></TR><TR><TD ALIGN="LEFT">duration, rating</TD></TR><TR><TD ALIGN="LEFT">language, certificate</TD></TR><TR><TD ALIGN="LEFT">posterUrl, price</TD></TR><TR><TD ALIGN="LEFT">timestamps</TD></TR></TABLE> >];
-  Booking [label=< <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6" COLOR="#9DCCAD"><TR><TD BGCOLOR="#DDF4E4"><B>Booking</B></TD></TR><TR><TD ALIGN="LEFT">_id (PK)</TD></TR><TR><TD ALIGN="LEFT">user (ref User)</TD></TR><TR><TD ALIGN="LEFT">movie (ref Movie)</TD></TR><TR><TD ALIGN="LEFT">showDate, showTime</TD></TR><TR><TD ALIGN="LEFT">seats[]</TD></TR><TR><TD ALIGN="LEFT">totalAmount</TD></TR><TR><TD ALIGN="LEFT">status, bookingCode</TD></TR><TR><TD ALIGN="LEFT">timestamps</TD></TR></TABLE> >];
-  User -> Booking [label="one user has many bookings", arrowhead=vee];
-  Movie -> Booking [label="one movie can appear in many bookings", arrowhead=vee];
+digraph IMoviesER {
+  graph [rankdir=TB, bgcolor="#ffffff", pad="0.2", nodesep="0.36", ranksep="0.5", fontname="Arial", label="IMovies - MongoDB Collection Relationships", labelloc=t, fontsize=17, ratio=fill, size="8,7!"];
+  node [shape=record, style="filled", fontname="Arial", fontsize=9, color="#c8c9d5", fillcolor="#f6f5fb", fontcolor="#222334", margin="0.1,0.08"];
+  edge [fontname="Arial", fontsize=8, color="#77758a", arrowsize=0.65];
+  User [label="{User|_id\lname\lemail unique\lpasswordHash\lrole user/admin\l}", fillcolor="#fce9ec"];
+  Movie [label="{Movie|_id\ltitle\lgenre[]\lduration\llanguage\lposterUrl\lprice\l}", fillcolor="#ede8ff"];
+  Theatre [label="{Theatre|_id\lname\lcity\laddress\lscreens\lactive\l}", fillcolor="#e4f4ee"];
+  Show [label="{Show|_id\lmovie ref Movie\ltheatre ref Theatre\lshowDate / showTime\lscreenName / price\lseatRows / seatsPerRow\lstatus\l}", fillcolor="#fff0d8"];
+  Booking [label="{Booking|_id\luser ref User\lmovie ref Movie\lshow ref Show\lseats[] / totalAmount\lstatus / bookingCode\lpaymentStatus\l}", fillcolor="#eef3ff"];
+  SeatReservation [label="{SeatReservation|_id\lshow ref Show\lseat\lbooking ref Booking\lunique show + seat\l}", fillcolor="#fce9ec"];
+  Payment [label="{Payment|_id\lbooking ref Booking\luser ref User\lamount / currency\lDEMO status / reference\l}", fillcolor="#e5f4f1"];
+  Notification [label="{Notification|_id\luser ref User\lbooking ref Booking\ltitle / message\lreadAt / type\l}", fillcolor="#f3edff"];
+  {rank=same; User; Movie; Theatre;}
+  {rank=same; SeatReservation; Payment; Notification;}
+  User -> Booking [label="1:N"];
+  Movie -> Show [label="1:N"];
+  Movie -> Booking [label="1:N"];
+  Theatre -> Show [label="1:N"];
+  Show -> Booking [label="1:N"];
+  Show -> SeatReservation [label="1:N"];
+  Booking -> SeatReservation [label="1:N"];
+  Booking -> Payment [label="demo payment"];
+  User -> Payment [label="1:N"];
+  User -> Notification [label="1:N"];
+  Booking -> Notification [label="optional"];
 }
